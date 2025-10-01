@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This is the provided NumberTriangle class to be used in this coding task.
@@ -111,19 +113,37 @@ public class NumberTriangle {
 
 
         // TODO define any variables that you want to use to store things
-
+        ArrayList<NumberTriangle> curr_roots = new ArrayList<>();
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
         NumberTriangle top = null;
 
         String line = br.readLine();
+        if (line != null) {
+            top = new NumberTriangle(Integer.parseInt(line));
+            curr_roots.add(top);
+        }
+
+        line = br.readLine();
         while (line != null) {
 
             // remove when done; this line is included so running starter code prints the contents of the file
             System.out.println(line);
 
             // TODO process the line
+            String[] parts = line.split(" ");
+            ArrayList<NumberTriangle> next_roots = new ArrayList<>();
+            //turn them into triangles
+            for (int i = 0; i < parts.length; i++) {
+                next_roots.add(new NumberTriangle(Integer.parseInt(parts[i])));
+            }
 
+            //assign the next roots to left or right to the current roots
+            for (int i = 0; i < curr_roots.size(); i++) {
+                curr_roots.get(i).setLeft(next_roots.get(i));
+                curr_roots.get(i).setRight(next_roots.get(i+1));
+            }
+            curr_roots = next_roots;
             //read the next line
             line = br.readLine();
         }
