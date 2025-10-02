@@ -91,7 +91,22 @@ public class NumberTriangle {
      */
     public int retrieve(String path) {
         // TODO implement this method
-        return -1;
+        if (path.equals("")) {
+            return this.getRoot();
+        }
+
+        NumberTriangle curr = this;
+        for (int i = 0; i < path.length(); i++) {
+            char ch = path.charAt(i);
+            if (ch == 'l') {
+                curr = curr.left;
+            }
+
+            if (ch == 'r') {
+                curr = curr.right;
+            }
+        }
+        return curr.getRoot();
     }
 
     /** Read in the NumberTriangle structure from a file.
@@ -128,7 +143,7 @@ public class NumberTriangle {
         while (line != null) {
 
             // remove when done; this line is included so running starter code prints the contents of the file
-            System.out.println(line);
+            // System.out.println(line);
 
             // TODO process the line
             String[] parts = line.split(" ");
